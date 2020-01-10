@@ -1,7 +1,7 @@
 <h1>サポートセンタ</h1>
 <p>サポートセンタとつなぎます。</p>
 <?= $this->Form->create($message) ?>
-<?= $this->Form->control('name') ?>
+<?= $this->Form->hidden('user_id', ['value' => $authuser['id']]) ?>
 <?= $this->Form->control('content') ?>
 <?= $this->Form->submit() ?>
 <?= $this->Form->end() ?>
@@ -17,7 +17,7 @@
         <?php foreach ($messages as $msg) : ?>
             <tr>
                 <td><?= h($msg->created) ?></td>
-                <td><?= h($msg->name) ?></td>
+                <td><?= h($msg->user->username) ?></td>
                 <td><?= h($msg->content) ?></td>
             </tr>
         <?php endforeach; ?>

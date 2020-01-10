@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
-class ChatController extends AppController
+class ChatController extends AuctionBaseController
 {
     public function initialize()
     {
         parent::initialize();
         $this->loadModel('Messages');
+        $this->set('authuser', $this->Auth->user());
     }
     public function index()
     {
@@ -22,7 +23,7 @@ class ChatController extends AppController
                 $this->redirect(['action' => 'index']);
             }
         }
-        $messages = $this->Messages->find('all', ['order' => ['created' => 'desc']]);
+        $messages = $this->Messages->find('all', ['contain' => ['Users'], 'order' => ['created' => 'desc']]);
         $this->set(compact('messages'));
         $this->set(compact('message'));
     }

@@ -4,16 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Message Entity
+ * Post Entity
  *
  * @property int $id
- * @property int $user_id
+ * @property int $thread_id
+ * @property string $writer
  * @property string $content
- * @property \Cake\I18n\FrozenTime $created
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Thread $thread
  */
-class Message extends Entity
+class Post extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -25,9 +25,9 @@ class Message extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
+        'thread_id' => true,
+        'writer' => true,
         'content' => true,
-        'created' => true,
-        'user' => true,
+        'thread' => true,
     ];
 }

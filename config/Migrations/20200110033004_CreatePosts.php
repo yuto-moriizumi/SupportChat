@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreateMessages extends AbstractMigration
+class CreatePosts extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,18 +12,20 @@ class CreateMessages extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('messages');
-        $table->addColumn('name', 'string', [
+        $table = $this->table('posts');
+        $table->addColumn('thread_id', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => false,
+        ]);
+        $table->addColumn('writer', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('content', 'text', [
+        $table->addColumn('content', 'string', [
             'default' => null,
-            'null' => false,
-        ]);
-        $table->addColumn('created', 'datetime', [
-            'default' => null,
+            'limit' => 255,
             'null' => false,
         ]);
         $table->create();

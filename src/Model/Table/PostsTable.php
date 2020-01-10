@@ -7,22 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Messages Model
+ * Posts Model
  *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ThreadsTable&\Cake\ORM\Association\BelongsTo $Threads
  *
- * @method \App\Model\Entity\Message get($primaryKey, $options = [])
- * @method \App\Model\Entity\Message newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Message[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Message|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Message saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Message patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Message[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Message findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @method \App\Model\Entity\Post get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Post newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Post[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Post|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Post saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Post patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Post[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Post findOrCreate($search, callable $callback = null, $options = [])
  */
-class MessagesTable extends Table
+class PostsTable extends Table
 {
     /**
      * Initialize method
@@ -34,14 +32,12 @@ class MessagesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('messages');
+        $this->setTable('posts');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+        $this->belongsTo('Threads', [
+            'foreignKey' => 'thread_id',
             'joinType' => 'INNER',
         ]);
     }
@@ -57,6 +53,12 @@ class MessagesTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->scalar('writer')
+            ->maxLength('writer', 255)
+            ->requirePresence('writer', 'create')
+            ->notEmptyString('writer');
 
         $validator
             ->scalar('content')
@@ -76,7 +78,7 @@ class MessagesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['thread_id'], 'Threads'));
 
         return $rules;
     }

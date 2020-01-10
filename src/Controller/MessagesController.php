@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -20,7 +19,9 @@ class MessagesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [];
+        $this->paginate = [
+            'contain' => ['Users'],
+        ];
         $messages = $this->paginate($this->Messages);
 
         $this->set(compact('messages'));
@@ -35,7 +36,9 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
-        $message = $this->Messages->get($id, []);
+        $message = $this->Messages->get($id, [
+            'contain' => ['Users'],
+        ]);
 
         $this->set('message', $message);
     }
@@ -57,7 +60,8 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
-        $this->set(compact('message'));
+        $users = $this->Messages->Users->find('list', ['limit' => 200]);
+        $this->set(compact('message', 'users'));
     }
 
     /**
