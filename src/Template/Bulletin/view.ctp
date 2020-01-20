@@ -1,5 +1,5 @@
 <main style="margin: 0px 200px 0px">
-    <?= $this->Html->link('<< 戻る', ['action' => 'index']) ?>
+    <?= $this->Html->link('<< 戻る', ['action' => 'index', $storeId]) ?>
     <h1>スレッド：<?= h($thread->title) ?></h1>
 
     <?php if (!empty($thread)) : ?>

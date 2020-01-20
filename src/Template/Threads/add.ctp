@@ -18,6 +18,7 @@
         <legend><?= __('Add Thread') ?></legend>
         <?php
             echo $this->Form->control('title');
+            echo $this->Form->control('store_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

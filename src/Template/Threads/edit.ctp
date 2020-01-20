@@ -24,6 +24,7 @@
         <legend><?= __('Edit Thread') ?></legend>
         <?php
             echo $this->Form->control('title');
+            echo $this->Form->control('store_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

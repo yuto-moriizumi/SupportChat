@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreateThreads extends AbstractMigration
+class CreateStores extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,18 +12,10 @@ class CreateThreads extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('threads');
-        $table->addColumn('title', 'string', [
+        $table = $this->table('stores');
+        $table->addColumn('name', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => false,
-        ]);
-        $table->addColumn('created', 'datetime', [
-            'default' => null,
-            'null' => false,
-        ]);
-        $table->addColumn('updated', 'datetime', [
-            'default' => null,
             'null' => false,
         ]);
         $table->create();

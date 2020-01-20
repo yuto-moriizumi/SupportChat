@@ -19,8 +19,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('updated') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('store_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -29,8 +28,7 @@
             <tr>
                 <td><?= $this->Number->format($thread->id) ?></td>
                 <td><?= h($thread->title) ?></td>
-                <td><?= h($thread->created) ?></td>
-                <td><?= h($thread->updated) ?></td>
+                <td><?= $this->Number->format($thread->store_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $thread->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $thread->id]) ?>

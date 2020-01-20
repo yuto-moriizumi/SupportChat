@@ -6,12 +6,13 @@ use App\Controller\AppController;
 
 class BulletinController extends AppController
 {
-    public function index()
+    public function index($id)
     {
         $this->loadModel('Threads');
         $thread = $this->Threads->newEntity();
         if ($this->request->is('post')) {
             $thread = $this->Threads->patchEntity($thread, $this->request->getData());
+            $thread['store_id'] = $id;
             if ($this->Threads->save($thread)) {
                 $this->Flash->success(__('保存しました。'));
             } else {
@@ -21,12 +22,16 @@ class BulletinController extends AppController
         $this->set(['newThread' => $thread]);
 
         $threads = $this->paginate('Threads', [
-            'order' => ['endtime' => 'desc'],
+            'conditions' => ['Threads.store_id' => $id],
             'limit' => 10
         ]);
-        $this->set(compact('threads'));
+        $this->set(compact('threads', 'id'));
+
+        $this->loadModel('Stores');
+        $storeName = $this->Stores->get($id)->toArray()['name'];
+        $this->set(compact('storeName'));
     }
-    public function view($id)
+    public function view($id, $storeId)
     {
         $this->loadModel('Posts');
         $post = $this->Posts->newEntity();
@@ -45,6 +50,6 @@ class BulletinController extends AppController
             'all',
             ['contain' => 'posts']
         )->where(['id' => $id])->toArray()[0];
-        $this->set(compact('thread'));
+        $this->set(compact('thread', 'storeId'));
     }
 }

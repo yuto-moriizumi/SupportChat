@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -17,11 +18,12 @@ class ThreadsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index($id)
     {
-        $threads = $this->paginate($this->Threads);
+        $threads = $this->paginate($this->Threads, ['condition' => ['Threads.store_id' => $id]]);
 
-        $this->set(compact('threads'));
+        $this->set(compact(['threads']));
+        $this->set(['id' => $id]);
     }
 
     /**

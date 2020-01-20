@@ -27,12 +27,8 @@
             <td><?= $this->Number->format($thread->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($thread->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Updated') ?></th>
-            <td><?= h($thread->updated) ?></td>
+            <th scope="row"><?= __('Store Id') ?></th>
+            <td><?= $this->Number->format($thread->store_id) ?></td>
         </tr>
     </table>
     <div class="related">

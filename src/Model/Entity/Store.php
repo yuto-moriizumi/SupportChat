@@ -4,15 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Thread Entity
+ * Store Entity
  *
  * @property int $id
- * @property string $title
- * @property int $store_id
+ * @property string $name
  *
- * @property \App\Model\Entity\Post[] $posts
+ * @property \App\Model\Entity\Thread[] $threads
  */
-class Thread extends Entity
+class Store extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -24,8 +23,7 @@ class Thread extends Entity
      * @var array
      */
     protected $_accessible = [
-        'title' => true,
-        'store_id' => true,
-        'posts' => true,
+        'name' => true,
+        'threads' => true,
     ];
 }

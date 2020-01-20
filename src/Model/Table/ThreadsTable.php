@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Threads Model
  *
+ * @property &\Cake\ORM\Association\BelongsTo $Stores
  * @property \App\Model\Table\PostsTable&\Cake\ORM\Association\HasMany $Posts
  *
  * @method \App\Model\Entity\Thread get($primaryKey, $options = [])
@@ -19,8 +20,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Thread patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Thread[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Thread findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class ThreadsTable extends Table
 {
@@ -38,8 +37,10 @@ class ThreadsTable extends Table
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
+        $this->belongsTo('Stores', [
+            'foreignKey' => 'store_id',
+            'joinType' => 'INNER',
+        ]);
         $this->hasMany('Posts', [
             'foreignKey' => 'thread_id',
         ]);
@@ -64,5 +65,19 @@ class ThreadsTable extends Table
             ->notEmptyString('title');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['store_id'], 'Stores'));
+
+        return $rules;
     }
 }
