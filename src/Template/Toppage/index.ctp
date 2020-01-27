@@ -17,7 +17,8 @@
         <tbody>
             <?php foreach ($stores as $store) : ?>
                 <tr>
-                    <td><?= $this->Html->link(h($store->name), ['controller' => 'bulletin', 'action' => 'index', $store->id]) ?></td>
+                    <td><?= $this->Html->link(h($store->name), ['controller' => 'bulletin', 'action' => 'index', $store->id]) ?>
+                        <?= $this->Form->postLink('削除する', ['controller' => 'toppage', 'action' => 'delete', $store->id]) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

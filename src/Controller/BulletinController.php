@@ -52,4 +52,17 @@ class BulletinController extends AppController
         )->where(['id' => $id])->toArray()[0];
         $this->set(compact('thread', 'storeId'));
     }
+    public function delete($id = null,  $thread_id, $store_id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $this->loadModel('Posts');
+        $store = $this->Posts->get($id);
+        if ($this->Posts->delete($store)) {
+            $this->Flash->success(__('The store has been deleted.'));
+        } else {
+            $this->Flash->error(__('The store could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'view', $thread_id, $store_id]);
+    }
 }

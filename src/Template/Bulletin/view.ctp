@@ -16,6 +16,7 @@
                 <tr>
                     <th scope='col'>送信者</th>
                     <th class='main' scope='col'>メッセージ</th>
+                    <th>アクション</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                         <tr>
                             <td><?= h($post->writer) ?></td>
                             <td><?= h($post->content) ?></td>
+                            <td><?= $this->Form->postLink('削除する', ['controller' => 'bulletin', 'action' => 'delete', $post->id, $thread->id, $storeId]) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

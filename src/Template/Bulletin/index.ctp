@@ -20,7 +20,7 @@
             <?php foreach ($threads as $thread) : ?>
                 <tr>
                     <td><?= $this->Html->link(h($thread->title), ['action' => 'view', $thread->id, $thread->store_id]) ?></td>
-                    <td><?= h($thread->created) ?></td>
+                    <td><?= $this->Form->postLink('削除する', ['controller' => 'bulletin', 'action' => 'delete', $thread->id]) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

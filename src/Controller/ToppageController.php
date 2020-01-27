@@ -25,4 +25,17 @@ class ToppageController extends AppController
         ]);
         $this->set(compact('stores'));
     }
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $this->loadModel('Stores');
+        $store = $this->Stores->get($id);
+        if ($this->Stores->delete($store)) {
+            $this->Flash->success(__('The store has been deleted.'));
+        } else {
+            $this->Flash->error(__('The store could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
 }
