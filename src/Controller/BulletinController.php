@@ -6,7 +6,7 @@ use App\Controller\AppController;
 
 class BulletinController extends AppController
 {
-    public function index($id)
+    public function index($id) //ストアIDはidの掲示板を表示するよ！
     {
         $this->loadModel('Threads');
         $thread = $this->Threads->newEntity();
